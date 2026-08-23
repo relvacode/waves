@@ -6,7 +6,7 @@ A KDE Plasma 6 live wallpaper that creates animated wave effects reminiscent of 
 
 - Animated wave effects with customizable frequency, amplitude, and speed
 - Adjustable framerate for performance tuning
-- Customizable wave color and background color
+- Customizable background color and wave brightness
 - Smooth animation using a GPU-accelerated shader
 - Low GPU overhead: no textures, noise lookups, framebuffers, or extra render passes
 - Timer-driven animation with a configurable 15–60 FPS cap
@@ -40,8 +40,8 @@ The wallpaper can be configured through the Plasma Wallpaper settings:
 - **Gradient Falloff**: Controls how quickly each wave band fades toward its edges
 - **Wave Speed**: Controls how fast the waves move
 - **Framerate**: Controls animation smoothness (higher = smoother but more resource intensive)
-- **Wave Color**: The color of the animated waves
-- **Background Color**: The color behind the waves
+- **Wave Brightness**: Controls how much brighter the animated waves are than the background
+- **Background Color**: The color behind the waves; the waves automatically use a brighter version of it
 
 The default framerate is 30 FPS. Lower it for minimum power use; increase it
 when a smoother animation is preferred. The shader renders layered analytic

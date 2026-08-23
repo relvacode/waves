@@ -17,7 +17,7 @@ Item {
     property real cfg_gradientFalloff: 0.24
     property real cfg_waveSpeed: 0.22
     property int cfg_targetFps: 30
-    property alias cfg_waveColor: waveColor.color
+    property real cfg_waveBrightness: 2.0
     property alias cfg_backgroundColor: backgroundColor.color
 
     // Also notify Plasma directly so Apply updates immediately, including
@@ -115,13 +115,13 @@ Item {
             }
             Layout.fillWidth: true
         }
-        Controls.Label { text: i18n("Wave color") }
-        KQuickControls.ColorButton {
-            id: waveColor
-            color: "#dcecff"
-            showAlphaChannel: false
-            dialogTitle: i18n("Select wave color")
-            onAccepted: {
+        Controls.Label { text: i18n("Wave brightness") }
+        Controls.Slider {
+            id: waveBrightness
+            from: 1.0; to: 4.0; stepSize: 0.05
+            value: root.cfg_waveBrightness
+            onMoved: {
+                root.cfg_waveBrightness = value
                 root.configurationChanged()
             }
             Layout.fillWidth: true

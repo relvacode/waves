@@ -34,9 +34,9 @@
       <label>Animation framerate</label>
       <default>30</default>
     </entry>
-    <entry name="waveColor" type="Color">
-      <label>Wave color</label>
-      <default>#dcecff</default>
+    <entry name="waveBrightness" type="double">
+      <label>Wave brightness</label>
+      <default>2.0</default>
     </entry>
     <entry name="backgroundColor" type="Color">
       <label>Background color</label>
