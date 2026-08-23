@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+
+  <group name="General">
+    <entry name="waveFrequency" type="double">
+      <label>Wave frequency</label>
+      <default>1.15</default>
+    </entry>
+    <entry name="waveAmplitude" type="double">
+      <label>Wave amplitude</label>
+      <default>0.12</default>
+    </entry>
+    <entry name="waveCenter" type="double">
+      <label>Wave center</label>
+      <default>0.575</default>
+    </entry>
+    <entry name="waveThickness" type="double">
+      <label>Wave thickness</label>
+      <default>0.32</default>
+    </entry>
+    <entry name="gradientFalloff" type="double">
+      <label>Gradient falloff</label>
+      <default>0.24</default>
+    </entry>
+    <entry name="waveSpeed" type="double">
+      <label>Wave speed</label>
+      <default>0.22</default>
+    </entry>
+    <entry name="targetFps" type="int">
+      <label>Animation framerate</label>
+      <default>30</default>
+    </entry>
+    <entry name="waveColor" type="Color">
+      <label>Wave color</label>
+      <default>#dcecff</default>
+    </entry>
+    <entry name="backgroundColor" type="Color">
+      <label>Background color</label>
+      <default>#07152c</default>
+    </entry>
+  </group>
+</kcfg>
