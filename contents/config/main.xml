@@ -6,40 +6,40 @@
   <kcfgfile name=""/>
 
   <group name="General">
-    <entry name="waveFrequency" type="double">
-      <label>Wave frequency</label>
+    <entry name="frequency" type="double">
+      <label>Frequency</label>
       <default>1.15</default>
     </entry>
-    <entry name="waveAmplitude" type="double">
-      <label>Wave amplitude</label>
+    <entry name="amplitude" type="double">
+      <label>Amplitude</label>
       <default>0.12</default>
     </entry>
-    <entry name="waveCenter" type="double">
-      <label>Wave center</label>
+    <entry name="center" type="double">
+      <label>Center</label>
       <default>0.575</default>
     </entry>
-    <entry name="waveThickness" type="double">
-      <label>Wave thickness</label>
+    <entry name="thickness" type="double">
+      <label>Thickness</label>
       <default>0.32</default>
     </entry>
     <entry name="gradientFalloff" type="double">
       <label>Gradient falloff</label>
       <default>0.24</default>
     </entry>
-    <entry name="waveSpeed" type="double">
-      <label>Wave speed</label>
+    <entry name="speed" type="double">
+      <label>Speed</label>
       <default>0.22</default>
     </entry>
     <entry name="targetFps" type="int">
       <label>Animation framerate</label>
       <default>30</default>
     </entry>
-    <entry name="waveBrightness" type="double">
-      <label>Wave brightness</label>
+    <entry name="brightness" type="double">
+      <label>Brightness</label>
       <default>2.0</default>
     </entry>
-    <entry name="backgroundColor" type="Color">
-      <label>Background color</label>
+    <entry name="color" type="Color">
+      <label>Color</label>
       <default>#07152c</default>
     </entry>
   </group>

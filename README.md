@@ -33,15 +33,15 @@ just uninstall
 ## Configuration
 
 The wallpaper can be configured through the Plasma Wallpaper settings:
-- **Wave Frequency**: Controls how many waves appear on screen
-- **Wave Amplitude**: Controls the height of the waves
-- **Wave Center**: Positions the wave group on the screen
-- **Wave Thickness**: Controls the thickness of all layered wave bands
+- **Frequency**: Controls how many waves appear on screen
+- **Amplitude**: Controls the height of the waves
+- **Center**: Positions the wave group on the screen
+- **Thickness**: Controls the thickness of all layered wave bands
 - **Gradient Falloff**: Controls how quickly each wave band fades toward its edges
-- **Wave Speed**: Controls how fast the waves move
+- **Speed**: Controls how fast the waves move
 - **Framerate**: Controls animation smoothness (higher = smoother but more resource intensive)
-- **Wave Brightness**: Controls how much brighter the animated waves are than the background
-- **Background Color**: The color behind the waves; the waves automatically use a brighter version of it
+- **Brightness**: Controls how much brighter the animated waves are than the background
+- **Color**: The color behind the waves; the waves automatically use a brighter version of it
 
 The default framerate is 30 FPS. Lower it for minimum power use; increase it
 when a smoother animation is preferred. The shader renders layered analytic

@@ -8,10 +8,10 @@
             }
         ],
         "Category": "Wallpaper",
-        "Description": "PS3-style wave live wallpaper with configurable framerate",
+        "Description": "Playstation style waves",
         "Id": "com.github.relvacode.waves",
         "License": "MIT",
-        "Name": "PS3 Waves",
+        "Name": "Waves",
         "Version": "1.0",
         "Icon": "preferences-desktop-wallpaper"
     },

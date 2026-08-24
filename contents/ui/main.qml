@@ -7,25 +7,25 @@ import Qt5Compat.GraphicalEffects.private
 WallpaperItem {
     id: root
 
-    property real waveFrequency: configuration.waveFrequency ?? 1.15
-    property real waveAmplitude: configuration.waveAmplitude ?? 0.12
-    property real waveCenter: configuration.waveCenter ?? 0.575
-    property real waveThickness: configuration.waveThickness ?? 0.32
+    property real frequency: configuration.frequency ?? 1.15
+    property real amplitude: configuration.amplitude ?? 0.12
+    property real center: configuration.center ?? 0.575
+    property real thickness: configuration.thickness ?? 0.32
     property real gradientFalloff: configuration.gradientFalloff ?? 0.24
-    property real waveSpeed: configuration.waveSpeed ?? 0.22
+    property real speed: configuration.speed ?? 0.22
     property int targetFps: configuration.targetFps ?? 30
-    property color backgroundColor: configuration.backgroundColor ?? "#07152c"
-    property real waveBrightness: configuration.waveBrightness ?? 2.0
+    property color color: configuration.color ?? "#07152c"
+    property real brightness: configuration.brightness ?? 2.0
     property real elapsed: 0
 
-    Behavior on backgroundColor {
+    Behavior on color {
         ColorAnimation {
             duration: 500
             easing.type: Easing.InOutQuad
         }
     }
 
-    Behavior on waveBrightness {
+    Behavior on brightness {
         NumberAnimation {
             duration: 350
             easing.type: Easing.InOutQuad
@@ -47,20 +47,20 @@ WallpaperItem {
         interval: Math.max(1, Math.round(1000 / Math.max(1, root.targetFps)))
         repeat: true
         running: root.visible && !root.animationPaused
-        onTriggered: root.elapsed += interval / 1000 * root.waveSpeed
+        onTriggered: root.elapsed += interval / 1000 * root.speed
     }
 
     ShaderEffect {
         anchors.fill: parent
         property real time: root.elapsed
         property vector2d resolution: Qt.vector2d(width, height)
-        property real frequency: root.waveFrequency
-        property real amplitude: root.waveAmplitude
-        property real waveCenter: root.waveCenter
-        property real waveThicknessValue: root.waveThickness
+        property real frequency: root.frequency
+        property real amplitude: root.amplitude
+        property real waveCenter: root.center
+        property real waveThicknessValue: root.thickness
         property real gradientFalloff: root.gradientFalloff
-        property color backgroundColor: root.backgroundColor
-        property real waveBrightness: root.waveBrightness
+        property color backgroundColor: root.color
+        property real waveBrightness: root.brightness
 
         // Qt 6 needs a QShader rather than legacy gl_FragColor GLSL. Keeping
         // this source in the QML makes the package installable without a
@@ -99,6 +99,10 @@ WallpaperItem {
             "    float sheen = 0.82 + 0.18 * sin(uv.x * 8.0 + phase);\n" +
             "    return edge * profile * sheen;\n" +
             "}\n" +
+            "float evolvingThickness(float phase, float speed) {\n" +
+            "    float pulse = 0.5 + 0.5 * sin(time * (0.42 + speed * 0.20) + phase);\n" +
+            "    return waveThicknessValue * (0.76 + 0.40 * pulse);\n" +
+            "}\n" +
             "void main() {\n" +
             "    vec2 uv = qt_TexCoord0;\n" +
             "    const float layerSpread = 1.0;\n" +
@@ -107,10 +111,10 @@ WallpaperItem {
             "    vec3 color = mix(top, bottom, smoothstep(0.04, 1.0, uv.y));\n" +
             "    color += backgroundColor.rgb * 0.08 * sin(uv.x * 3.0 + uv.y * 5.0);\n" +
             "    float a = max(amplitude, 0.01);\n" +
-            "    float body = ribbon(uv, 0.0, waveThicknessValue, 0.0, 0.32);\n" +
-            "    float shoulder = ribbon(uv, -0.045 * layerSpread, waveThicknessValue, 1.7, 0.32);\n" +
-            "    float lowerFold = ribbon(uv, 0.075 * layerSpread, waveThicknessValue, 5.1, 0.32);\n" +
-            "    float lowerShadow = ribbon(uv, 0.115 * layerSpread, waveThicknessValue, 2.2, 0.20);\n" +
+            "    float body = ribbon(uv, 0.0, evolvingThickness(0.0, 0.32), 0.0, 0.32);\n" +
+            "    float shoulder = ribbon(uv, -0.045 * layerSpread, evolvingThickness(1.7, 0.32), 1.7, 0.32);\n" +
+            "    float lowerFold = ribbon(uv, 0.075 * layerSpread, evolvingThickness(5.1, 0.32), 5.1, 0.32);\n" +
+            "    float lowerShadow = ribbon(uv, 0.115 * layerSpread, evolvingThickness(2.2, 0.20), 2.2, 0.20);\n" +
             "    float broad = max(body, max(shoulder, lowerShadow));\n" +
             "    vec3 waveColor = min(backgroundColor.rgb * waveBrightness, vec3(1.0));\n" +
             "    vec3 pale = mix(waveColor, vec3(1.0), 0.48);\n" +
