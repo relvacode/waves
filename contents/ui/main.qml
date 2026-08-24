@@ -119,11 +119,12 @@ WallpaperItem {
             "    vec3 waveColor = min(backgroundColor.rgb * waveBrightness, vec3(1.0));\n" +
             "    vec3 pale = mix(waveColor, vec3(1.0), 0.48);\n" +
             "    vec3 blue = mix(backgroundColor.rgb, waveColor, 0.72);\n" +
+            "    vec3 shadowColor = mix(backgroundColor.rgb, waveColor, 0.72);\n" +
             "    color += blue * broad * (0.28 + 0.16 * (1.0 - uv.y));\n" +
             "    color += pale * body * 0.38;\n" +
             "    color += pale * shoulder * 0.44;\n" +
             "    color += blue * lowerFold * 0.42;\n" +
-            "    color -= backgroundColor.rgb * lowerShadow * 0.12;\n" +
+            "    color -= shadowColor * lowerShadow * 0.12;\n" +
             "    fragColor = vec4(max(color, vec3(0.0)), 1.0) * qt_Opacity;\n" +
             "}\n"
         fragmentShader: ShaderBuilder.buildFragmentShader(shaderSource)
