@@ -1,4 +1,4 @@
-# PS3 Waves Wallpaper
+# Waves Wallpaper
 
 A KDE Plasma 6 live wallpaper that creates animated wave effects reminiscent of PlayStation 3's visual style. It uses a single lightweight GPU shader pass and is suitable for always-on desktop use.
 
@@ -53,11 +53,3 @@ ribbons in one full-screen pass without animation textures or feedback.
 - KDE Plasma 6.0 or higher
 - OpenGL 2.0 or higher support
 - Compatible graphics drivers
-
-## License
-
-MIT License - see LICENSE file for details
-
-## Author
-
-relvacode
