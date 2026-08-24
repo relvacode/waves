@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls as Controls
 import QtQuick.Layouts
-import org.kde.kquickcontrols as KQuickControls
 
 Item {
     id: root
@@ -18,7 +17,7 @@ Item {
     property real cfg_speed: 0.22
     property int cfg_targetFps: 30
     property real cfg_brightness: 2.0
-    property alias cfg_color: colorButton.color
+    property alias cfg_color: themeSelector.selectedColor
 
     // Also notify Plasma directly so Apply updates immediately, including
     // when the configuration map has not been populated yet.
@@ -126,14 +125,50 @@ Item {
             }
             Layout.fillWidth: true
         }
-        Controls.Label { text: i18n("Color") }
-        KQuickControls.ColorButton {
-            id: colorButton
-            color: "#07152c"
-            showAlphaChannel: false
-            dialogTitle: i18n("Select color")
-            onAccepted: {
+        Controls.Label { text: i18n("Theme") }
+        Controls.ComboBox {
+            id: themeSelector
+
+            property color selectedColor: "#003791"
+            model: [
+                { name: i18n("PlayStation Blue"), color: "#003791" },
+                { name: i18n("Deep Navy"), color: "#001B35" },
+                { name: i18n("Blue"), color: "#006FCD" },
+                { name: i18n("Cyan/Teal"), color: "#00A6B2" },
+                { name: i18n("Purple"), color: "#6A35A8" },
+                { name: i18n("Magenta"), color: "#B52C8A" },
+                { name: i18n("Red"), color: "#B92727" },
+                { name: i18n("Orange"), color: "#C86620" },
+                { name: i18n("Yellow"), color: "#B69A24" },
+                { name: i18n("Green"), color: "#287B4B" },
+                { name: i18n("Dark Grey"), color: "#1F2024" },
+                { name: i18n("Black"), color: "#000000" }
+            ]
+            textRole: "name"
+            currentIndex: {
+                var configuredColor = selectedColor.toString().toLowerCase()
+                for (var index = 0; index < model.length; ++index) {
+                    if (model[index].color.toLowerCase() === configuredColor)
+                        return index
+                }
+                return 0
+            }
+            onActivated: {
+                selectedColor = model[index].color
                 root.configurationChanged()
+            }
+            Component.onCompleted: {
+                var configuredColor = selectedColor.toString().toLowerCase()
+                var isPreset = false
+                for (var index = 0; index < model.length; ++index) {
+                    if (model[index].color.toLowerCase() === configuredColor) {
+                        isPreset = true
+                        break
+                    }
+                }
+                // Migrate the former free-form default to the first preset.
+                if (!isPreset)
+                    selectedColor = model[0].color
             }
             Layout.fillWidth: true
         }

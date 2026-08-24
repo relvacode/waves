@@ -39,8 +39,8 @@
       <default>2.0</default>
     </entry>
     <entry name="color" type="Color">
-      <label>Color</label>
-      <default>#07152c</default>
+      <label>Theme</label>
+      <default>#003791</default>
     </entry>
   </group>
 </kcfg>

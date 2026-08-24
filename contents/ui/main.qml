@@ -14,7 +14,7 @@ WallpaperItem {
     property real gradientFalloff: configuration.gradientFalloff ?? 0.24
     property real speed: configuration.speed ?? 0.22
     property int targetFps: configuration.targetFps ?? 30
-    property color color: configuration.color ?? "#07152c"
+    property color color: configuration.color ?? "#003791"
     property real brightness: configuration.brightness ?? 2.0
     property real elapsed: 0
 
