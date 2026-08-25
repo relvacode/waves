@@ -90,6 +90,13 @@ float evolvingThickness(float phase, float speed) {
     return waveThicknessValue * (0.76 + 0.40 * pulse);
 }
 
+// Break up low-frequency gradients before they are quantized to the display's
+// limited color precision. The pattern is screen-stable, so it does not
+// introduce temporal noise while the wallpaper is animated.
+float dither(vec2 pixel) {
+    return fract(52.9829189 * fract(0.06711056 * pixel.x + 0.00583715 * pixel.y)) - 0.5;
+}
+
 void main() {
     vec2 uv = qt_TexCoord0;
 
@@ -132,6 +139,8 @@ void main() {
     color += pale * (bodyTurn * 0.18 + shoulderTurn * 0.22 + lowerFoldTurn * 0.16);
     color -= shadowColor * lowerShadowTurn * 0.10;
     color += specular * broad;
+
+    color += vec3(dither(gl_FragCoord.xy) / 255.0);
 
     fragColor = vec4(max(color, vec3(0.0)), 1.0) * qt_Opacity;
 }
