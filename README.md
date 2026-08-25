@@ -53,3 +53,17 @@ ribbons in one full-screen pass without animation textures or feedback.
 - KDE Plasma 6.0 or higher
 - OpenGL 2.0 or higher support
 - Compatible graphics drivers
+
+## Development
+
+Compiling the shader source requires Qt Shader Tools
+
+```
+apt install qt6-shadertools-dev
+```
+
+Then compile the shader
+
+```
+just compile-shader
+```

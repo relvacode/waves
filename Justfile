@@ -1,7 +1,10 @@
 # Justfile for PS3 Waves KDE Live Wallpaper
 
+compile-shader:
+    /usr/lib/qt6/bin/qsb --qt6 --glsl "100 es,120,150" --hlsl 50 --msl 12 -o contents/ui/shaders/wave.qsb contents/ui/shaders/wave.frag
+
 # Install the wallpaper by copying files to the correct locations
-install:
+install: compile-shader
 	@echo "Installing PS3 Waves wallpaper..."
 	@mkdir -p ~/.local/share/plasma/wallpapers/com.github.relvacode.waves
 	@cp -r contents metadata.json ~/.local/share/plasma/wallpapers/com.github.relvacode.waves/
