@@ -59,3 +59,13 @@ Then compile the shader
 ```
 just compile-shader
 ```
+
+### Build for the KDE Store
+
+Create the distributable package for upload to the KDE Store:
+
+```bash
+just package
+```
+
+The package is written to `build/com.github.relvacode.waves.tar.gz`.

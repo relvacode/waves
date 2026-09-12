@@ -3,6 +3,15 @@
 compile-shader:
     /usr/lib/qt6/bin/qsb --qt6 --glsl "100 es,120,150" --hlsl 50 --msl 12 -o contents/ui/shaders/wave.qsb contents/ui/shaders/wave.frag
 
+# Build the package to upload to the KDE Store
+package: compile-shader
+    @mkdir -p build/package
+    @rm -rf build/package/contents
+    @cp -r contents metadata.json build/package/
+    @rm -f build/com.github.relvacode.waves.tar.gz
+    @cd build/package && tar -czf ../com.github.relvacode.waves.tar.gz contents metadata.json
+    @echo "Package created at build/com.github.relvacode.waves.tar.gz"
+
 # Install the wallpaper by copying files to the correct locations
 install: compile-shader
 	@echo "Installing PS3 Waves wallpaper..."
