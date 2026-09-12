@@ -16,6 +16,7 @@ WallpaperItem {
     property color color: configuration.color ?? "#003791"
     property real brightness: configuration.brightness ?? 2.0
     property real elapsed: 0
+    property real intro: 0
 
     Behavior on color {
         ColorAnimation {
@@ -46,7 +47,11 @@ WallpaperItem {
         interval: Math.max(1, Math.round(1000 / Math.max(1, root.targetFps)))
         repeat: true
         running: root.visible && !root.animationPaused
-        onTriggered: root.elapsed += interval / 1000 * root.speed
+        onTriggered: {
+            root.elapsed += interval / 1000 * root.speed
+            if (root.intro < 1.0)
+                root.intro = Math.min(1.0, root.intro + interval / 1000 / 1.6)
+        }
     }
 
     ShaderEffect {
@@ -60,6 +65,7 @@ WallpaperItem {
         property real gradientFalloff: root.gradientFalloff
         property color backgroundColor: root.color
         property real waveBrightness: root.brightness
+        property real intro: root.intro
 
         fragmentShader: Qt.resolvedUrl("shaders/wave.qsb")
     }

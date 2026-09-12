@@ -8,6 +8,7 @@ A KDE Plasma 6 live wallpaper that creates animated wave effects reminiscent of 
 - Adjustable framerate for performance tuning
 - Preset background themes and adjustable wave brightness
 - Smooth animation using a GPU-accelerated shader
+- PlayStation-style boot animation on first load: the pattern starts compressed and rapidly expands to fill the screen
 - Low GPU overhead: no textures, noise lookups, framebuffers, or extra render passes
 - Timer-driven animation with a configurable 15–60 FPS cap
 

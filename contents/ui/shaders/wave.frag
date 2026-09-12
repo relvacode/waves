@@ -15,6 +15,7 @@ layout(std140, binding = 0) uniform buf {
     vec2 resolution;
     vec4 backgroundColor;
     float waveBrightness;
+    float intro;
 };
 
 float path(float x, float offset, float phase, float speed) {
@@ -102,6 +103,23 @@ void main() {
 
     const float layerSpread = 1.0;
 
+    // Boot intro: the pattern starts compressed into a small region around
+    // the wave center, then rapidly expands to fill the screen, echoing the
+    // PlayStation boot sequence. `intro` eases from 0 to 1 on first load.
+    float t = clamp(intro, 0.0, 1.0);
+    float expand = 1.0 - pow(1.0 - pow(t, 1.4), 3.0);
+    float frontRadius = mix(0.05, 2.0, expand);
+    float introZoom = frontRadius / 2.0;
+
+    vec2 center = vec2(0.5, waveCenter);
+    vec2 scaled = center + (uv - center) * introZoom;
+
+    float aspect = resolution.x / max(resolution.y, 1.0);
+    float dist = length((uv - center) * vec2(aspect, 1.0));
+    float front = 1.0 - smoothstep(frontRadius, frontRadius + 0.15, dist);
+    float introMask = max(front, smoothstep(0.94, 1.0, t));
+    float introFade = smoothstep(0.0, 0.06, t) * introMask;
+
     vec3 top = backgroundColor.rgb * 1.10;
     vec3 bottom = backgroundColor.rgb * 0.62;
     vec3 color = mix(top, bottom, smoothstep(0.04, 1.0, uv.y));
@@ -114,10 +132,10 @@ void main() {
     float lowerFoldTurn;
     float lowerShadowTurn;
 
-    float body = ribbon(uv, 0.0, evolvingThickness(0.0, 0.32), 0.0, 0.32, bodyTurn);
-    float shoulder = ribbon(uv, -0.045 * layerSpread, evolvingThickness(1.7, 0.32), 1.7, 0.32, shoulderTurn);
-    float lowerFold = ribbon(uv, 0.075 * layerSpread, evolvingThickness(5.1, 0.32), 5.1, 0.32, lowerFoldTurn);
-    float lowerShadow = ribbon(uv, 0.115 * layerSpread, evolvingThickness(2.2, 0.20), 2.2, 0.20, lowerShadowTurn);
+    float body = ribbon(scaled, 0.0, evolvingThickness(0.0, 0.32), 0.0, 0.32, bodyTurn);
+    float shoulder = ribbon(scaled, -0.045 * layerSpread, evolvingThickness(1.7, 0.32), 1.7, 0.32, shoulderTurn);
+    float lowerFold = ribbon(scaled, 0.075 * layerSpread, evolvingThickness(5.1, 0.32), 5.1, 0.32, lowerFoldTurn);
+    float lowerShadow = ribbon(scaled, 0.115 * layerSpread, evolvingThickness(2.2, 0.20), 2.2, 0.20, lowerShadowTurn);
 
     float broad = max(body, max(shoulder, lowerShadow));
 
@@ -131,14 +149,20 @@ void main() {
     float glint = smoothstep(0.48, 0.98, sin(time * 1.15 + focus.x * 5.0 - focus.y * 3.0) * 0.5 + 0.5);
     vec3 specular = vec3(0.72, 0.86, 1.0) * glint * focusDepth * 0.22;
 
-    color += blue * broad * (0.28 + 0.16 * (1.0 - uv.y));
-    color += pale * body * 0.38;
-    color += pale * shoulder * 0.44;
-    color += blue * lowerFold * 0.42;
-    color -= shadowColor * lowerShadow * 0.12;
-    color += pale * (bodyTurn * 0.18 + shoulderTurn * 0.22 + lowerFoldTurn * 0.16);
-    color -= shadowColor * lowerShadowTurn * 0.10;
-    color += specular * broad;
+    // The wave pattern accumulates only while the compressed sample fits
+    // inside the expanding front, so the pattern appears as it is reached.
+    color += blue * broad * (0.28 + 0.16 * (1.0 - uv.y)) * introFade;
+    color += pale * body * 0.38 * introFade;
+    color += pale * shoulder * 0.44 * introFade;
+    color += blue * lowerFold * 0.42 * introFade;
+    color -= shadowColor * lowerShadow * 0.12 * introFade;
+    color += pale * (bodyTurn * 0.18 + shoulderTurn * 0.22 + lowerFoldTurn * 0.16) * introFade;
+    color -= shadowColor * lowerShadowTurn * 0.10 * introFade;
+    color += specular * broad * introFade;
+
+    // Expanding shockwave band that sweeps outward with the intro front.
+    float band = (1.0 - smoothstep(0.0, 0.22, abs(dist - frontRadius))) * (1.0 - t) * 0.5;
+    color += waveColor * band;
 
     color += vec3(dither(gl_FragCoord.xy) / 255.0);
 
