@@ -1,6 +1,17 @@
 # Waves Wallpaper
 
-A KDE Plasma 6 live wallpaper that creates animated wave effects reminiscent of PlayStation 3's visual style. It uses a single lightweight GPU shader pass and is suitable for always-on desktop use.
+A KDE Plasma 6 live wallpaper that creates animated wave effects reminiscent of PlayStation's visual style. It uses a single lightweight GPU shader pass and is suitable for always-on desktop use.
+
+<table>
+  <tr>
+    <td><img src=".screenshots/black.jpg" alt="Black wave wallpaper theme" width="360"></td>
+    <td><img src=".screenshots/grey.jpg" alt="Grey wave wallpaper theme" width="360"></td>
+  </tr>
+  <tr>
+    <td><img src=".screenshots/orange.jpg" alt="Orange wave wallpaper theme" width="360"></td>
+    <td><img src=".screenshots/purple.jpg" alt="Purple wave wallpaper theme" width="360"></td>
+  </tr>
+</table>
 
 ## Features
 
@@ -8,9 +19,7 @@ A KDE Plasma 6 live wallpaper that creates animated wave effects reminiscent of 
 - Adjustable framerate for performance tuning
 - Preset background themes and adjustable wave brightness
 - Smooth animation using a GPU-accelerated shader
-- PlayStation-style boot animation on first load: the pattern starts compressed and rapidly expands to fill the screen
 - Low GPU overhead: no textures, noise lookups, framebuffers, or extra render passes
-- Timer-driven animation with a configurable 15–60 FPS cap
 
 ## Installation
 
@@ -30,24 +39,6 @@ To uninstall the wallpaper:
 ```bash
 just uninstall
 ```
-
-## Configuration
-
-The wallpaper can be configured through the Plasma Wallpaper settings:
-- **Frequency**: Controls how many waves appear on screen
-- **Amplitude**: Controls the height of the waves
-- **Center**: Positions the wave group on the screen
-- **Thickness**: Controls the thickness of all layered wave bands
-- **Gradient Falloff**: Controls how quickly each wave band fades toward its edges
-- **Speed**: Controls how fast the waves move
-- **Framerate**: Controls animation smoothness (higher = smoother but more resource intensive)
-- **Brightness**: Controls how much brighter the animated waves are than the background
-- **Theme**: Selects the color behind the waves; the waves automatically use a brighter version of it
-
-The default framerate is 30 FPS. Lower it for minimum power use; increase it
-when a smoother animation is preferred. The shader renders layered analytic
-ribbons in one full-screen pass without animation textures or feedback.
-
 
 ## Requirements
 
