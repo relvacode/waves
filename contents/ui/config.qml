@@ -141,6 +141,8 @@ Item {
                 { name: i18n("Orange"), color: "#C86620" },
                 { name: i18n("Yellow"), color: "#B69A24" },
                 { name: i18n("Green"), color: "#287B4B" },
+                { name: i18n("Brown"), color: "#5C3A21" },
+                { name: i18n("Silver"), color: "#A6ABB5" },
                 { name: i18n("Dark Grey"), color: "#1F2024" },
                 { name: i18n("Black"), color: "#000000" }
             ]
